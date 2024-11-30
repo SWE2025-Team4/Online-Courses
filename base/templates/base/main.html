@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CodeTech</title>
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'base/css/style.css' %}">
+</head>
+
+<body>
+    {% include 'base/header.html' %}
+
+    <!-- Start of Hero Section -->
+    <section>
+        <div id="header"></div>
+        <div class="content">
+            <div class="imge-div">
+                <img src="{% static 'base/img/Homepage/heroImage.jpeg' %}" class="img-sty" alt="Hero Image">
+                <div class="layer-up-1">
+                    <div class="Header-txt">
+                        <h1 class="highlight">Learn to code with</h1>
+                        <h2><span class="color-letter">C</span>ode<span class="color-letter">T</span>ech</h2>
+                        <p class="p-txt">
+                            CodeTech provides you with the best coding courses. We have a team of experts who will help you learn coding from scratch. <br>
+                            So, what are you waiting for? Join us today and start your coding journey!
+                        </p>
+                        <button class="btn">
+                            Get Started <img class="arrow" src="{% static 'base/img/Homepage/arrow.png' %}" alt="arrow">
+                        </button>
+                    </div>
+                </div>
+                <div class="layer-up-2"></div>
+                <div class="layer-down-1"></div>
+                <div class="layer-down-2"></div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Hero Section -->
+
+    <!-- Start of Instructor Section -->
+    <section>
+        <div class="instructors-section">
+            <div class="instructors-title">
+                <h2 class="highlight">Our Best Instructors</h2>
+                <a class="highlight instructor-link" href="#">Browse Courses
+                    <img class="arrow-blue" src="{% static 'base/img/icons/3994400_arrow_forward_navigation_next_right_icon.png' %}" alt="arrow">
+                </a>
+            </div>
+            <div class="instructors-div">
+                <!-- Instructor cards go here -->
+            </div>
+        </div>
+    </section>
+    <!-- End of Instructor Section -->
+
+    <!-- Start of Courses Section -->
+    <section>
+        <div class="courses-section">
+            <div class="courses-title">
+                <h2>Our Best Courses</h2>
+            </div>
+            <div class="courses-div">
+                <div class="course">
+                    <div class="course-card">
+                        <!-- Image for course or other content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Courses Section -->
+
+    {% include 'base/footer.html' %}
+
+    <!-- Include JavaScript -->
+    <script src="{% static 'base/js/card.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+{% load static %}
+
+<section class="overlay-section">
+    <header>
+        <!-- place navbar here -->
+        <nav class="navbar">
+            <div class="logo">
+                <a href="#">
+                    <h2><span class="color-letter">C</span>ode<span class="color-letter">T</span>ech</h2>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a class="Sp-link" href="#">Home</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">Book Now</a></li>
+                <li><a href="#">Contact US</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+            <div class="icons">
+                <img src="{% static 'base/img/search.png' %}" alt="Search" class="icon" onclick="searchIcon()">
+                <div class="searchBar" id="search-bar">
+                    <input id="search-input" type="search" placeholder="Search ....">
+                    <button id="search-btn">Search</button>
+                </div>
+
+                <img src="{% static 'base/img/user.png' %}" alt="User" class="icon" onclick="userIcon()">
+                <div class="user-div" id="user-div">
+                    <a href="#">Register</a>
+                    <a href="#">Login</a>
+                    <a href="">My Account</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+</section>
+
+{% block main %}
+{% endblock %}
+
+<!-- Corrected static file references -->
+<link type="text/css" rel="stylesheet" href="{% static 'base/css/style.css' %}">
+<script src="{% static 'base/js/header.js' %}"></script>
+<script src="{% static 'base/js/card.js' %}"></script>
