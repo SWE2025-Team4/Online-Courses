@@ -6,7 +6,8 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Profile
-from .forms import ProfileForm
+from .forms import ProfileForm, ContactMessageForm
+
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
@@ -27,6 +28,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('edit-profile')
+
 
 class CustomPasswordChangeView(PasswordChangeView):
     form_class = CustomPasswordChangeForm
@@ -51,26 +53,29 @@ class CustomPasswordChangeView(PasswordChangeView):
         print("Password change failed. Errors:", form.errors)
         return super().form_invalid(form)
 
-
-
-
-
-
 def homeElearning(request):
     return render(request, 'base/main.html')
-
-
-def contact_us(request):
-    return render(request, 'base/contactUs.html')
-
 
 def about_us(request):
     return render(request, 'base/aboutUs.html')
 
-
 def change_password(request):
     return render(request, 'base/change_password.html')
 
-
 def person_info(request):
     return render(request, 'base/personInfo.html')
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactMessageForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the contact message to the database
+            return redirect('contact_success')  # Redirect to the success page
+    else:
+        form = ContactMessageForm()
+
+    return render(request, 'base/contactUs.html', {'form': form})
+
+def contact_success(request):
+    return render(request, 'base/contact_success.html')

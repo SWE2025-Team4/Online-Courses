@@ -7,8 +7,7 @@
     {% load static %}
     <link type="text/css" rel="stylesheet" href="{% static 'base/css/style.css' %}?v=1.0">
     <link rel="icon" type="image/svg+xml" href="{% static 'base/img/icons/logoicon.svg' %}?v=1.0">
-    <title>Person Information</title>
-
+    <title>Contact Us</title>
 </head>
 
 {% include 'base/header.html' %}
@@ -18,36 +17,18 @@
     <div class="contact-section">
         <div class="contact-info">
             <h1>Contact Us</h1>
-            <p>
-                Growing up in a small Turkish village, CodeTech founder Erin Bali had few educational opportunities
-                — until he got a computer. Fueled by his dream to compete in mathematics, he used the internet to
-                learn his way to a silver medal in the International Math Olympiad. 
-                After learning online changed his life,
-                Erin partnered with co-founders Katy Carla and Sagan Bryan to achieve a common goal: to make
-                quality education accessible to all.
-            </p>
-             <img class="img-div3" src="{% static 'base/img/10523337_google_talk_icon.jpg' %}" alt="">
+            <p>Feel free to get in touch with us!</p>
             <ul>
-                <li><a href=""><img class="icon"  src="{% static 'base/img/8665305_envelope_email_icon.png' %}" alt=""> example@example.com</a>
-                </li>
-                <li><a href=""><img class="icon" src="{% static 'base/img/8665646_phone_communication_icon.png' %}" alt=""> +1
-                    (012)-345-678</a></li>
-                <li><a href=""><img class="icon" src="{% static 'base/img/10523337_google_talk_icon.png' %}" alt=""> Local address, United
-                    States, Main building M13, 4th floor</a></li>
+                <li><a href=""><img class="icon" src="{% static 'base/img/8665305_envelope_email_icon.png' %}" alt=""> example@example.com</a></li>
+                <li><a href=""><img class="icon" src="{% static 'base/img/8665646_phone_communication_icon.png' %}" alt=""> +1 (012)-345-678</a></li>
+                <li><a href=""><img class="icon" src="{% static 'base/img/10523337_google_talk_icon.png' %}" alt=""> Local address, United States</a></li>
             </ul>
         </div>
+
         <div class="contact-form">
-            <form method="POST" action="{% url 'password_change_done' %}">
+            <form method="POST" action="{% url 'contactUs' %}">
                 {% csrf_token %}
-                <label for="name">Your Name *</label>10523337_google_talk_icon
-                <input type="text" id="name" name="name" placeholder="Your Name" required>
-
-                <label for="phone">Phone Number *</label>
-                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
-
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" placeholder="Type your message here"></textarea>
-
+                {{ form.as_p }}
                 <button type="submit">Submit</button>
             </form>
         </div>

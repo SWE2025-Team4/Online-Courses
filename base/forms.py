@@ -1,14 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
 from django import forms
-from .models import Profile
-
-
-class ProfileForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['image']
-
+from .models import Profile, ContactMessage
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     full_name = forms.CharField(max_length=100, required=False, label="Full Name")
@@ -26,4 +19,25 @@ class ProfileForm(forms.ModelForm):
         fields = ['phone', 'image']
         widgets = {
             'phone': forms.TextInput(attrs={'placeholder': 'Enter your phone number'}),
+        }
+
+
+class ContactMessageForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'phone', 'message']
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'placeholder': 'Your Name',
+                'class': 'form-input'
+            }),
+            'phone': forms.TextInput(attrs={
+                'placeholder': 'Phone Number',
+                'class': 'form-input'
+            }),
+            'message': forms.Textarea(attrs={
+                'placeholder': 'Type your message here',
+                'class': 'form-textarea',
+                'rows': 4
+            }),
         }
