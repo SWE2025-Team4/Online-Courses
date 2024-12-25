@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Are you sure you want to delete the course "{{ course.title }}"?</h1>
+
+<!-- Display the course description and other details -->
+<p>Description: {{ course.description }}</p>
+<p>Instructor: {{ course.instructor.username }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, Delete</button>
+</form>
+
+<br>
+<a href="{% url 'course_list' %}">Cancel</a>
+</body>
+</html>

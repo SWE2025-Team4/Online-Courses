@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'base/css/style.css' %}?v=1.0"/>
+    <link rel="icon" type="image/svg+xml" href="{% static 'base/img/icons/logoicon.svg' %}?v=1.0">
+    <title>Person Information</title>
+</head>
+
+<body>
+{% include 'base/header.html' %}
+
+<section>
+    <div class="person-info">
+        <!-- Person Details Section -->
+        <div class="detal-info">
+            <h1>Person Information</h1>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" value="{{ user.get_full_name }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="text" id="email" name="email" value="{{ user.email }}" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" id="phone" name="phone" value="{{ user.profile.phone }}" disabled>
+                </div>
+                <button type="button" class="submit-btn" onclick="location.href='{% url 'change-password' %}';">
+                    Change Information
+                </button>
+            </form>
+        </div>
+
+        <!-- Profile Image Section -->
+        <div class="person-img">
+            <form id="profile-form" class="profile-form" method="post" enctype="multipart/form-data" action="{% url 'edit-profile' %}">
+                {% csrf_token %}
+                <img src="{{ request.user.profile.image.url }}" alt="Profile Image" width="150">
+                <!--هنا فيه الصوره الشخصيه -->
+
+                <input type="file" id="profile-image" name="image" accept="image/*" style="display: none;"
+                       onchange="previewImage(event)">
+
+                <!-- Button to trigger file input -->
+                <button type="button" class="upload-btn" onclick="document.getElementById('profile-image').click();">
+                    Upload
+                </button>
+
+
+                <button type="submit" class="upload-btn"> SAVE Change </button>
+                <script>
+                    // Preview the selected image before upload
+                    function previewImage(event) {
+                        const reader = new FileReader();
+                        reader.onload = function () {
+                            const output = document.querySelector('img[alt="Profile Image"]');
+                            output.src = reader.result;
+                        };
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+                </script>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% include 'base/footer.html' %}
+<script src="{% static 'base/js/info.js' %}"></script>
+
+
+</body>
+
+</html>

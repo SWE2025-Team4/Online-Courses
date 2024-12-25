@@ -4,76 +4,187 @@
 <head>
     <title>CodeTech</title>
     {% load static %}
-    <link type="text/css" rel="stylesheet" href="{% static 'base/css/style.css' %}">
+    <link type="text/css" rel="stylesheet" href="{% static 'base/css/style.css' %}?v=1.0">
+    <link rel="icon" type="image/svg+xml" href="{% static 'base/img/icons/logoicon.svg' %}?v=1.0">
+
+    <script type="text/javascript" src="{% static 'base/js/card.js' %}?v=1.0"></script>
 </head>
 
 <body>
-    {% include 'base/header.html' %}
 
-    <!-- Start of Hero Section -->
-    <section>
-        <div id="header"></div>
-        <div class="content">
-            <div class="imge-div">
-                <img src="{% static 'base/img/Homepage/heroImage.jpeg' %}" class="img-sty" alt="Hero Image">
-                <div class="layer-up-1">
-                    <div class="Header-txt">
-                        <h1 class="highlight">Learn to code with</h1>
+{% include 'base/header.html' %}
+<!-- Start of Hero Section -->
+<section>
+    <div class="content">
+        <div class="imge-div">
+            <img src="{% static 'base/img/Homepage/heroImage.jpeg' %}" class="img-sty" alt="Hero Image">
+            <div class="layer-up-1">
+                <div class="Header-txt">
+                    <h1 class="highlight">Learn to code with
                         <h2><span class="color-letter">C</span>ode<span class="color-letter">T</span>ech</h2>
-                        <p class="p-txt">
-                            CodeTech provides you with the best coding courses. We have a team of experts who will help you learn coding from scratch. <br>
-                            So, what are you waiting for? Join us today and start your coding journey!
-                        </p>
-                        <button class="btn">
-                            Get Started <img class="arrow" src="{% static 'base/img/Homepage/arrow.png' %}" alt="arrow">
-                        </button>
-                    </div>
-                </div>
-                <div class="layer-up-2"></div>
-                <div class="layer-down-1"></div>
-                <div class="layer-down-2"></div>
-            </div>
-        </div>
-    </section>
-    <!-- End of Hero Section -->
-
-    <!-- Start of Instructor Section -->
-    <section>
-        <div class="instructors-section">
-            <div class="instructors-title">
-                <h2 class="highlight">Our Best Instructors</h2>
-                <a class="highlight instructor-link" href="#">Browse Courses
-                    <img class="arrow-blue" src="{% static 'base/img/icons/3994400_arrow_forward_navigation_next_right_icon.png' %}" alt="arrow">
-                </a>
-            </div>
-            <div class="instructors-div">
-                <!-- Instructor cards go here -->
-            </div>
-        </div>
-    </section>
-    <!-- End of Instructor Section -->
-
-    <!-- Start of Courses Section -->
-    <section>
-        <div class="courses-section">
-            <div class="courses-title">
-                <h2>Our Best Courses</h2>
-            </div>
-            <div class="courses-div">
-                <div class="course">
-                    <div class="course-card">
-                        <!-- Image for course or other content -->
-                    </div>
+                    </h1>
+                    <p class="p-txt">CodeTech provides you with the best coding courses. We have
+                        a team of experts who will help you learn coding from scratch. <br>
+                        So, what are you waiting for?
+                        Join us today and start your coding journey!</p>
+                    <button class="btn">Get Started <img class="arrow" src="{% static 'base/img/Homepage/arrow.png' %}"
+                                                         alt="arrow"></button>
                 </div>
             </div>
+            <div class="layer-up-2"></div>
+            <div class="layer-down-1"></div>
+            <div class="layer-down-2"></div>
         </div>
-    </section>
-    <!-- End of Courses Section -->
 
-    {% include 'base/footer.html' %}
+    </div>
+</section>
+<!-- End of Hero Section -->
 
-    <!-- Include JavaScript -->
-    <script src="{% static 'base/js/card.js' %}"></script>
+<!-- Start of instructor Section -->
+<section>
+    <div class="instructors-section">
+        <div class="instructors-title">
+            <h2 class="highlight">Our Best Instructors</h2>
+            <a class="highlight instructor-link" href="#">Browse Courses
+                <img class="arrow-blue"
+                     src="{% static 'base/img/icons/3994400_arrow_forward_navigation_next_right_icon.png' %}"
+                     alt="arrow">
+            </a>
+        </div>
+        <div class="instructors-div">
+            <div class="instructor">
+                <div class="instructor-card">
+                    <img class="img-div1" src="{% static 'base/img/Homepage/insterctor2.png' %}" alt="Instructor 1">
+                </div>
+                <h3> HTML & CSS </h3>
+                <p>Eng / Mona Maher</p>
+                <div class="rating-container">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star empty">&#9733;</span>
+                    <span class="review">(340 Review)</span>
+                </div>
+                <button class="btn spbtn">View Profile</button>
+            </div>
+
+            <div class="instructor">
+                <div class="instructor-card">
+                    <img class="img-div" src="{% static 'base/img/Homepage/insterctor3.png' %}" alt="Instructor 1">
+                </div>
+                <h3> JavaScript </h3>
+                <p>Eng / Mohammed Atef</p>
+
+                <div class="rating-container">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star empty">&#9733;</span>
+                    <span class="review">(340 Review)</span>
+                </div>
+                <button class="btn spbtn">View Profile</button>
+            </div>
+
+            <div class="instructor">
+                <div class="instructor-card">
+                    <img class="img-div2" src="{% static 'base/img/Homepage/insterctor4.png' %}" alt="Instructor 1">
+                </div>
+                <h3> React Js </h3>
+                <p>Eng / Malak Mohammed</p>
+
+                <div class="rating-container">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star empty">&#9733;</span>
+                    <span class="review">(340 Review)</span>
+                </div>
+                <button class="btn spbtn">View Profile</button>
+            </div>
+
+            <div class="instructor">
+                <div class="instructor-card">
+                    <img class="img-div5" src="{% static 'base/img/Homepage/insterctor1.png' %}" alt="Instructor 1">
+                </div>
+                <h3> .NET </h3>
+                <p>Eng / Basma Tarek</p>
+
+                <div class="rating-container">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star empty">&#9733;</span>
+                    <span class="review">(340 Review)</span>
+                </div>
+                <button class="btn spbtn">View Profile</button>
+            </div>
+
+            <div class="instructor">
+                <div class="instructor-card">
+                    <img class="img-div4" src="{% static 'base/img/Homepage/insterctor6.png' %}" alt="Instructor 1">
+                </div>
+                <h3> Angular </h3>
+                <p>Eng / Mohamed Magdy</p>
+
+                <div class="rating-container">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star empty">&#9733;</span>
+                    <span class="review">(340 Review)</span>
+                </div>
+                <button class="btn spbtn">View Profile</button>
+            </div>
+
+            <div class="instructor">
+                <div class="instructor-card">
+                    <img class="img-div3" src="{% static 'base/img/Homepage/insterctor5.png' %}" alt="Instructor 1">
+                </div>
+                <h3> Next Js </h3>
+                <p>Eng / Farida Ashraf </p>
+
+                <div class="rating-container">
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star">&#9733;</span>
+                    <span class="star empty">&#9733;</span>
+                    <span class="review">(340 Review)</span>
+                </div>
+                <button class="btn spbtn">View Profile</button>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- End of Instructor Section -->
+
+<!-- Start of Courses Section -->
+<section>
+    <div class="courses-section">
+        <div class="courses-title">
+            <h2 class="">Our Best Courses </h2>
+        </div>
+        <div class="courses-div">
+            <div class="course">
+                <div class="course-card">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End of Courses Section -->
+
+{% include 'base/footer.html' %}
+
+<div id="header"></div>
+<div id="footer"></div>
 </body>
 
 </html>

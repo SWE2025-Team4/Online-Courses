@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'base/css/style.css' %}?v=1.0">
+    <title>Person Information</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'base/img/icons/logoicon.svg' %}?v=1.0">
+</head>
+
+{% include 'base/header.html' %}
+<body>
+<div id="header"></div>
+
+<section>
+    <div class="aboutUs">
+        <h1>About Us</h1>
+        <section id="mission">
+            <div>
+                <h1>Our Mission</h1>
+                <p>
+                    CodeTech is a leading publishing platform that delivers inspiring, industry-specific
+                    content to eLearning professionals. As a top-tier eLearning marketplace, we offer a
+                    plethora of sophisticated,
+                    online marketing solutions to corporate training companies to empower and help them grow.
+                </p>
+            </div>
+            <img class="img-div3" src="{% static 'base/img/business-people_H6PSN9BPGZ.jpg' %}" alt="">
+        </section>
+
+        <section id="vision">
+            <img class="img-div3" src="{% static 'base/img/pic-work-02.jpg' %}" alt="">
+
+            <div>
+                <h1>Our Vision</h1>
+                <p>
+                    Our vision is to be the leading eLearning platform in the Middle East and North Africa
+                    region, providing the best online courses and training programs to help individuals and
+                    organizations achieve their goals.
+                </p>
+            </div>
+        </section>
+
+        <section id="who">
+            <div>
+                <h1>Who we are.</h1>
+                <p>
+                    CodeTech is a leading eLearning platform that offers a wide range of online courses
+                    and training programs to help individuals and organizations achieve their goals.
+                    Our courses are designed by industry experts and delivered by experienced instructors
+                    to ensure that you get the best learning experience.
+                </p>
+            </div>
+            <img class="img-div3" src="{% static 'base/img/who_we_are.jpg' %}" alt="">
+
+
+        </section>
+
+    </div>
+</section>
+
+</body>
+{% include 'base/footer.html' %}
+
+</html>

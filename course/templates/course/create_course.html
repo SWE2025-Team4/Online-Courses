@@ -1,0 +1,163 @@
+<!-- course_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Course</title>
+
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container for the form */
+        .form-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Form Heading */
+        .form-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* Form Field Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #28a745;
+            background-color: #fff;
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        /* Submit Button Styles */
+        .form-container .btn-submit {
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container .btn-submit:hover {
+            background-color: #218838;
+        }
+
+        /* Optional Reset Button */
+        .form-container .btn-reset {
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            background-color: #dc3545;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .form-container .btn-reset:hover {
+            background-color: #c82333;
+        }
+
+        /* Back Link */
+        .form-container .btn-back {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+            text-decoration: none;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .form-container .btn-back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1>Create New Course</h1>
+
+    <form method="POST" action="{% url 'course_create' %}">
+        {% csrf_token %}
+
+        <!-- Course Title -->
+        <div class="form-group">
+            <label for="name">Course Title</label>
+            <input type="text" name="name" id="title" placeholder="Enter course title" required>
+        </div>
+
+        <!-- Course Description -->
+        <div class="form-group">
+            <label for="description">Course Description</label>
+            <textarea name="description" id="description" placeholder="Enter course description" required></textarea>
+        </div>
+
+        <!-- Instructor (Hidden) - This should be automatically filled based on the logged-in user -->
+        <input type="hidden" name="instructor" value="{{ user.id }}">
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">Create Course</button>
+
+        <!-- Reset Button (optional) -->
+        <button type="reset" class="btn-reset">Reset Form</button>
+
+    </form>
+
+    <a href="{% url 'course_list' %}" class="btn-back">Back to Course List</a>
+</div>
+
+</body>
+</html>

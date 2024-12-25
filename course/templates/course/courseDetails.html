@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course.name }} - Details</title>
+    {% load static %}
+    <link type="text/css" rel="stylesheet" href="{% static 'course/css/style.css' %}?v=1.0">
+<link rel="icon" type="image/svg+xml" href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0">
+
+</head>
+
+
+{% include 'base/header.html' %}
+
+
+<section class="course-details">
+    <div class="course-header">
+        <!-- Main Video Section -->
+        <div class="video-container">
+            <iframe
+                    id="main-video"
+                    class="playlist-video"
+                    src="{% if playlist %}{{ playlist.0.get_embed_url }}{% endif %}"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    style=" width: 1000px; height: 500px;"
+                    allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Playlist Section -->
+        <aside class="playlist">
+            <h3 class="highlight">Playlist</h3>
+            <ul>
+                {% for video in playlist %}
+                <li class="playlist-item" data-video="{{ video.video_url }}">
+                    <iframe
+                            class="playlist-video"
+                            src="{{ video.get_embed_url }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                    </iframe>
+                    <p>{{ video.title }}</p>
+                </li>
+                {% empty %}
+                <p>No videos available for this course.</p>
+                {% endfor %}
+            </ul>
+        </aside>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <!-- Course Content Section -->
+    <div class="course-content">
+        <h1 class="highlight">{{ course.name }}</h1>
+        <p>Instructor: {{ course.instructor.first_name }} {{ course.instructor.last_name }}</p>
+        <div class="description">
+            <h1 class="highlight">About the Course</h1>
+            <p>{{ course.description }}</p>
+        </div>
+    </div>
+</section>
+
+
+{% include 'base/footer.html' %}
+
+
+<script type="text/javascript" src="{% static 'course/js/playlist.js' %}?v=1.0"></script>
+
+
+</html>
