@@ -24,27 +24,28 @@
 
     /* Main container: left video + right playlist */
     .container {
+        margin-top: 100px;
       display: flex;
       flex-direction: row;
       height: 100vh; /* Occupy full viewport height */
     }
 
     /* Left side: video iframe */
-    .video-container {
+    .video-container1 {
       flex: 1; /* Takes remaining space */
       background-color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
     }
-    .video-container iframe {
+    .video-container1 iframe {
       width: 90%;
       height: 90%;
       border: none;
     }
 
     /* Right side: playlist */
-    .playlist {
+    .playlist2 {
       width: 320px; /* Fixed width for the playlist */
       background-color: #fff;
       overflow-y: auto;
@@ -94,10 +95,10 @@
 {% include 'base/header.html' %}
 
 
-<section class="course-details">
-    <div class="course-header">
+
+    <div class="container">
         <!-- Main Video Section -->
-        <div class="video-container">
+        <div class="video-container1">
             <iframe 
               id="video-player" 
               src="https://www.youtube.com/embed/r5iWCtfltso" 
@@ -106,9 +107,9 @@
           </div>
 
         <!-- Playlist Section -->
-        <aside class="playlist" width: 20%;>
+        <div class="playlist2">
             <h3 class="highlight">Playlist</h3>
-            <ul>
+           
                 {% for video in playlist %}                
                 <div 
                     class="video-item" 
@@ -122,8 +123,8 @@
                 {% empty %}
                 <p>No videos available for this course.</p>
                 {% endfor %}
-            </ul>
-        </aside>
+            
+        </div>
     </div>
     <br/>
     <br/>
@@ -141,7 +142,7 @@
             <p>{{ course.description }}</p>
         </div>
     </div>
-</section>
+
 
 <script>
     function changeVideo(element) {

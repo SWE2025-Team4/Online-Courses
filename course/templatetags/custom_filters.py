@@ -4,7 +4,6 @@ register = template.Library()
 
 @register.filter
 def is_enrolled(user_enrollments, course):
-    """
-    Check if the given course is in the user's enrollments.
-    """
+    if user_enrollments is None:
+        return False
     return user_enrollments.filter(course=course).exists()
