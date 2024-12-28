@@ -10,6 +10,83 @@
 <link rel="icon" type="image/svg+xml" href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0">
 <link rel="icon" type="image/svg+xml" href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0">
 
+<style>
+    /* Basic reset and page style */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    /* Main container: left video + right playlist */
+    .container {
+      display: flex;
+      flex-direction: row;
+      height: 100vh; /* Occupy full viewport height */
+    }
+
+    /* Left side: video iframe */
+    .video-container {
+      flex: 1; /* Takes remaining space */
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .video-container iframe {
+      width: 90%;
+      height: 90%;
+      border: none;
+    }
+
+    /* Right side: playlist */
+    .playlist {
+      width: 320px; /* Fixed width for the playlist */
+      background-color: #fff;
+      overflow-y: auto;
+      border-left: 1px solid #ddd;
+    }
+
+    /* Single video item in playlist */
+    .video-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .video-item:hover {
+      background-color: #f0f0f0;
+    }
+
+    /* Thumbnail image */
+    .video-item img {
+      width: 80px;
+      height: 45px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    /* Video title text */
+    .video-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .video-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    .video-description {
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
 
 </head>
 
@@ -21,31 +98,27 @@
     <div class="course-header">
         <!-- Main Video Section -->
         <div class="video-container">
-            <iframe
-                    id="main-video"
-                    class="video-player"
-                    src="{% if playlist %}{{ playlist.0.get_embed_url }}{% endif %}"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
+            <iframe 
+              id="video-player" 
+              src="https://www.youtube.com/embed/r5iWCtfltso" 
+              allowfullscreen>
             </iframe>
-        </div>
+          </div>
 
         <!-- Playlist Section -->
         <aside class="playlist" width: 20%;>
             <h3 class="highlight">Playlist</h3>
             <ul>
-                {% for video in playlist %}
-                <li class="playlist-item" data-video="{{ video.video_url }}">
-                    <iframe
-                            class="playlist-video"
-                            src="{{ video.get_embed_url }}"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                    </iframe>
-                    <p>{{ video.title }}</p>
-                </li>
+                {% for video in playlist %}                
+                <div 
+                    class="video-item" 
+                    data-video="https://www.youtube.com/embed/{{ video.video_url }}" 
+                    onclick="changeVideo(this)">
+                    <img src="https://img.youtube.com/vi/{{ video.video_url }}/0.jpg" alt="Video Thumbnail" />
+                    <div class="video-info">
+                    <div class="video-title">{{ video.title }}</div>                    
+                    </div>
+                </div>
                 {% empty %}
                 <p>No videos available for this course.</p>
                 {% endfor %}
@@ -70,6 +143,18 @@
     </div>
 </section>
 
+<script>
+    function changeVideo(element) {
+      // Get the iframe
+      const videoPlayer = document.getElementById('video-player');
+      // Get the new video's base URL from the data-video attribute
+      const baseUrl = element.getAttribute('data-video');
+      // Append ?autoplay=1 to ensure the video starts playing immediately
+      const newVideoURL = baseUrl + '?autoplay=1';
+      // Change the src of the iframe
+      videoPlayer.src = newVideoURL;
+    }
+  </script>
 
 {% include 'base/footer.html' %}
 

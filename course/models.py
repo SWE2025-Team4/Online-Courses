@@ -39,7 +39,7 @@ class Course(models.Model):
 class Playlist(models.Model):
     course = models.ForeignKey(Course, related_name='playlists', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    video_url = models.URLField()
+    video_url = models.CharField(max_length=200)
 
     def __str__(self):
         return self.title
