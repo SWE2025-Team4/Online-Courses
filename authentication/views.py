@@ -24,22 +24,24 @@ def register(request):
 
 # Login View
 def login_view(request):
+    error_message = None  # Initialize error message
     if request.method == 'POST':
-        print("Request method is POST for login.")
         username = request.POST.get('username')
         password = request.POST.get('password')
-        print(f"Attempting to authenticate user: {username}")
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            print(f"Authentication successful for user: {username}")
             login(request, user)
-            return redirect('/')  # Redirect to home page after login
+            return redirect('/')  # Redirect to the homepage on successful login
         else:
-            print(f"Authentication failed for user: {username}")
-            return redirect('login')  # Redirect back to login if authentication fails
-    else:
-        print("Request method is GET for login.")
-    return render(request, 'authentication/login.html', {'form_type': 'login'})
+            error_message = "Invalid username or password. Please try again."
+
+    # Preserve the query parameters
+    query_param = '?form=login'
+    return render(request, 'authentication/login.html', {
+        'form_type': 'login',
+        'error_message': error_message,
+        'query_param': query_param,
+    })
 
 
 def logout_view(request):

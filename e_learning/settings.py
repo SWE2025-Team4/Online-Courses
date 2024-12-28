@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-%(fs8anrdmr=(wrya0^i(6-j0j=#)&sy721d^b81fo7(!_3t8y
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://team5.ddns.net']
 
 # Application definition
 JAZZMIN_SETTINGS = {
@@ -58,6 +59,8 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
 ]
 
+LOGIN_URL = '/auth/login/?form=login'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'e_learning.middleware.CustomLoginMiddleware',
 ]
 
 ROOT_URLCONF = 'e_learning.urls'

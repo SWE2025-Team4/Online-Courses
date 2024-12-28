@@ -12,10 +12,10 @@
             </div>
             <div class="footer-links">
                 <ul>
-                    <li><a class="Sp-link" href="#">Home</a></li>
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#">Contact US</a></li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a class="Sp link" href="{% url 'homeElearning' %}">Home</a></li>
+                    <li><a href="{% url 'course_list' %}">Courses</a></li>
+                    <li><a href="{% url 'contactUs' %}">Contact US</a></li>
+                    <li><a href="{% url 'aboutUs' %}">About Us</a></li>
                 </ul>
             </div>
             <div class="footer-social">
@@ -29,3 +29,6 @@
         </div>
     </div>
 </footer>
+<div class="copyright-div">
+    <p class="copy-right"> Copyright © 2024 CodeTech, All rights reserved.</p>
+</div>

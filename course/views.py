@@ -1,11 +1,15 @@
 # views.py
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Course
+
+from .decorators import custom_login_required
 from .forms import CourseForm
 from django.db.models import Q
+from .models import Course, Enrollment
+
 
 
 # View to list all courses
@@ -16,15 +20,12 @@ class CourseListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        """
-        Override this method to filter courses based on the search query.
-        """
+
         search_query = self.request.GET.get('search', '').strip()  # Get search query and strip leading/trailing spaces
 
         print('search_query==>', search_query)  # Debugging output
 
         if search_query:
-            # Using Q objects to combine filters for name, category, and description
             query = (
                     Q(name__icontains=search_query) |
                     Q(category__icontains=search_query) |
@@ -53,6 +54,8 @@ class CourseListView(ListView):
 
         # Add search query to the context
         context['search_query'] = search_query
+        if self.request.user.is_authenticated:
+            context['user_enrollments'] = self.request.user.enrollments.all()
         return context
 
     # def get_queryset(self):
@@ -64,15 +67,28 @@ class CourseListView(ListView):
     #         print(f'Instructor {user.username} is viewing their own courses')
     #         return Course.objects.filter(instructor=user)
 
-class CourseDetailView(DetailView):
+class CourseDetailView(LoginRequiredMixin, DetailView):
     model = Course
     template_name = 'course/courseDetails.html'
     context_object_name = 'course'
+    login_url = '/auth/login/?form=login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['playlist'] = self.object.playlists.all()  # Fetch the course's playlist
         return context
+
+@custom_login_required
+def enroll_in_course(request, course_id):
+    course = get_object_or_404(Course, id=course_id)
+    user = request.user
+
+    # Check if the user is already enrolled
+    if not Enrollment.objects.filter(user=user, course=course).exists():
+        Enrollment.objects.create(user=user, course=course)
+
+    # Redirect to course details after enrollment
+    return redirect('course_detail', pk=course.id)
 
 
 # View to create a new course

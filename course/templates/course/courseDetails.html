@@ -8,6 +8,8 @@
     {% load static %}
     <link type="text/css" rel="stylesheet" href="{% static 'course/css/style.css' %}?v=1.0">
 <link rel="icon" type="image/svg+xml" href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0">
+<link rel="icon" type="image/svg+xml" href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0">
+
 
 </head>
 
@@ -21,17 +23,16 @@
         <div class="video-container">
             <iframe
                     id="main-video"
-                    class="playlist-video"
+                    class="video-player"
                     src="{% if playlist %}{{ playlist.0.get_embed_url }}{% endif %}"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    style=" width: 1000px; height: 500px;"
                     allowfullscreen>
             </iframe>
         </div>
 
         <!-- Playlist Section -->
-        <aside class="playlist">
+        <aside class="playlist" width: 20%;>
             <h3 class="highlight">Playlist</h3>
             <ul>
                 {% for video in playlist %}

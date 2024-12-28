@@ -10,8 +10,10 @@
 <body>
 {% include 'base/header.html' %}
 
-
-<section class="catalog-container">
+<section>
+    <div class="catalog-div">
+    <div class="courses">
+        <div class="catalog-container">
     {% if not search_query %}
     <!-- Categories and Grouped Courses -->
     <br/>
@@ -38,7 +40,8 @@
                                 src="{% if course.video_url %}{{ course.video_url }}{% endif %}"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
+                                allowfullscreen
+                                style="height: 300px;">
                         </iframe>
                     </div>
                     <div class="course-details">
@@ -94,7 +97,14 @@
         </div>
     </div>
     {% endif %}
+</div>
+    </div>
+</div>
 </section>
+
+
+
+
 
 {% include 'base/footer.html' %}
 
