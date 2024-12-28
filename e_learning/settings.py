@@ -29,11 +29,15 @@ CSRF_TRUSTED_ORIGINS = ['https://team5.ddns.net']
 
 # Application definition
 JAZZMIN_SETTINGS = {
-    "site_title": "My Admin",  # Title of the admin site
-    "site_header": "My Site Admin",  # Header text for the admin site
-    "site_brand": "MySite",  # Brand name in the admin
+    "site_title": "Admin",  # Title of the admin site
+    "site_header": "E-Learning",  # Header text for the admin site
+    "site_brand": "E-Learning",  # Brand name in the admin
+    "copyright": "My Company © 2024",
+    # Other Jazzmin options you can customize:
+    "search_model": "auth.User",
+    "user_avatar": None,
     "site_icon": "fas fa-cogs",  # Font Awesome icon (optional)
-    "welcome_sign": "Welcome to the Admin Panel!",  # Custom welcome message
+    "welcome_sign": "Welcome to the Admin Panel E-Learning!",  # Custom welcome message
     "topmenu_links": [
         {"name": "Dashboard", "url": "admin:index", "icon": "fa fa-home"},
         # You can add more menu links here...
