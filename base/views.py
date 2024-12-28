@@ -8,6 +8,8 @@ from django.urls import reverse_lazy
 from .models import Profile
 from .forms import ProfileForm, ContactMessageForm
 
+from .forms import ProfileForm, ContactMessageForm
+
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
@@ -28,6 +30,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('edit-profile')
+
 
 
 class CustomPasswordChangeView(PasswordChangeView):
