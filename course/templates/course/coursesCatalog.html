@@ -5,101 +5,140 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Courses</title>
     {% load static %}
+    {% load custom_filters %}
     <link rel="icon" type="image/svg+xml" href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0">
 </head>
 <body>
 {% include 'base/header.html' %}
 
+<section>
+    <div class="catalog-div">
+        <div class="courses">
+            <div class="catalog-container">
+                {% if not search_query %}
+                <!-- Categories and Grouped Courses -->
+                <br/>
+                <div class="categories">
+                    <h1>Course Categories</h1>
+                    <ul id="category-list">
+                        {% for category, courses in categories_with_courses.items %}
+                        <li><a href="#{{ category|slugify }}">{{ category }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
 
-<section class="catalog-container">
-    {% if not search_query %}
-    <!-- Categories and Grouped Courses -->
-    <br/>
-    <div class="categories">
-        <h1>Course Categories</h1>
-        <ul id="category-list">
-            {% for category, courses in categories_with_courses.items %}
-            <li><a href="#{{ category|slugify }}">{{ category }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
+                <div id="course-container" class="catalog-container">
+                    {% for category, courses in categories_with_courses.items %}
+                    <div id="{{ category|slugify }}" class="course-category">
+                        <h3>{{ category }}</h3>
+                        <div class="course-list">
+                            {% if courses %}
+                            {% for course in courses %}
+                            <div class="course">
+                                <div class="course-video">
+                                    <iframe
+                                            class="video-player"
+                                            src="{% if course.video_url %}{{ course.video_url }}{% endif %}"
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen>
+                                    </iframe>
+                                </div>
+                                <div class="course-details">
+                                    <h2>{{ course.name }}</h2>
+                                    <p><strong>Category:</strong> {{ course.get_category_display }}</p>
+                                    <p>{{ course.description }}</p>
+                                    <p><strong>Instructor:</strong> {{ course.instructor.username }}</p>
 
-    <div id="course-container" class="catalog-container">
-        {% for category, courses in categories_with_courses.items %}
-        <div id="{{ category|slugify }}" class="course-category">
-            <h3>{{ category }}</h3>
-            <div class="course-list">
-                {% if courses %}
-                {% for course in courses %}
-                <div class="course">
-                    <div class="course-video">
-                        <iframe
-                                class="video-player"
-                                src="{% if course.video_url %}{{ course.video_url }}{% endif %}"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                        </iframe>
+                                    {% if user.is_authenticated %}
+                                    {% if user_enrollments|is_enrolled:course %}
+                                    <!-- Show the "Let's Continue Learning" button -->
+                                    <button class="enroll-btn"
+                                            onclick="window.location.href='{% url 'course_detail' course.id %}';">
+                                        Continue Learning
+                                    </button>
+                                    {% else %}
+                                    <!-- Show the "Enroll Now" button -->
+                                    <button class="enroll-btn"
+                                            onclick="window.location.href='{% url 'course_enroll' course.id %}';">
+                                        Enroll Now
+                                    </button>
+                                    {% endif %}
+                                    {% else %}
+                                    <!-- Show the "Enroll Now" button for unauthenticated users -->
+                                    <button class="enroll-btn"
+                                            onclick="window.location.href='/auth/login/?form=login';">
+                                        Enroll Now
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <p>No courses available for this category.</p>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="course-details">
-                        <h2>{{ course.name }}</h2>
-                        <p><strong>Category:</strong> {{ course.get_category_display }}</p>
-                        <p>{{ course.description }}</p>
-                        <p><strong>Instructor:</strong> {{ course.instructor.username }}</p>
-                        <button class="enroll-btn"
-                                onclick="window.location.href='{% url 'course_detail' course.id %}';">
-                            Enroll Now
-                        </button>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <!-- Search Results -->
+                <div id="search-results" class="catalog-container">
+                    <div class="course-list">
+                        {% if courses %}
+                        {% for course in courses %}
+                        <div class="course">
+                            <div class="course-video">
+                                <iframe
+                                        class="video-player"
+                                        src="{% if course.video_url %}{{ course.video_url }}{% endif %}"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="course-details">
+                                <h2>{{ course.name }}</h2>
+                                <p><strong>Category:</strong> {{ course.get_category_display }}</p>
+                                <p>{{ course.description }}</p>
+                                <p><strong>Instructor:</strong> {{ course.instructor.username }}</p>
+
+                                {% if user.is_authenticated %}
+                                {% if user_enrollments|is_enrolled:course %}
+                                <!-- Show the "Let's Continue Learning" button -->
+                                <button class="enroll-btn"
+                                        onclick="window.location.href='{% url 'course_detail' course.id %}';">
+                                    Continue Learning
+                                </button>
+                                {% else %}
+                                <!-- Show the "Enroll Now" button -->
+                                <button class="enroll-btn"
+                                        onclick="window.location.href='{% url 'course_enroll' course.id %}';">
+                                    Enroll Now
+                                </button>
+                                {% endif %}
+                                {% else %}
+                                <!-- Show the "Enroll Now" button for unauthenticated users -->
+                                <button class="enroll-btn"
+                                        onclick="window.location.href='/auth/login/?next={% url 'course_enroll' course.id %}';">
+                                    Enroll Now
+                                </button>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p>No results found for your search.</p>
+                        {% endif %}
                     </div>
                 </div>
-                {% endfor %}
-                {% else %}
-                <p>No courses available for this category.</p>
                 {% endif %}
             </div>
         </div>
-        {% endfor %}
     </div>
-    {% else %}
-    <!-- Search Results -->
-    <div id="search-results" class="catalog-container">
-        <div class="course-list">
-            {% if courses %}
-            {% for course in courses %}
-            <div class="course">
-                <div class="course-video">
-                    <iframe
-                            class="video-player"
-                            src="{% if course.video_url %}{{ course.video_url }}{% endif %}"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="course-details">
-                    <h2>{{ course.name }}</h2>
-                    <p><strong>Category:</strong> {{ course.get_category_display }}</p>
-                    <p>{{ course.description }}</p>
-                    <p><strong>Instructor:</strong> {{ course.instructor.username }}</p>
-                    <button class="enroll-btn"
-                            onclick="window.location.href='{% url 'course_detail' course.id %}';">
-                        Enroll Now
-                    </button>
-                </div>
-            </div>
-            {% endfor %}
-            {% else %}
-            <p>No results found for your search.</p>
-            {% endif %}
-        </div>
-    </div>
-    {% endif %}
 </section>
 
 {% include 'base/footer.html' %}
 
-
 </body>
 </html>
-
-

@@ -17,7 +17,7 @@ class Course(models.Model):
         ('data_science', 'Data Science'),
         ('machine', 'Machine Learning'),
         ('artificial', 'Artificial Intelligence'),
-        ('ui', 'DUI/UX Design'),
+        ('ui', 'UI/UX Design'),
     ]
 
     category = models.CharField(
@@ -32,6 +32,7 @@ class Course(models.Model):
     class Meta:
         verbose_name_plural = 'Courses'
         ordering = ('created_date', 'id')
+
 
 
 
