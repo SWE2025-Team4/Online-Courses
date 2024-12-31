@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm  # Import the custom form
-
+from base.models import Profile
 def register(request):
     if request.method == 'POST':
         print("Registration form:", request.POST)
@@ -10,6 +10,9 @@ def register(request):
         if form.is_valid():
             print("Registration form is valid.")
             user = form.save()
+            profile, created = Profile.objects.get_or_create(user=user)
+            profile.phone = form.cleaned_data['phone']
+            profile.save()
             login(request, user)
             return redirect('/')  # Redirect to the login page after successful registration
         else:

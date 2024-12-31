@@ -53,8 +53,13 @@
                   action="{% url 'register' %}">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="signup-name">Username</label>
-                    <input type="text" name="username" id="signup-name" placeholder="Enter your username" required>
+                    <label for="signup-name">User login</label>
+                    <input type="text" name="username" id="signup-name" placeholder="Enter your login" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-first-name">User full Name</label>
+                    <input type="text" name="first_name" id="signup-name" placeholder="Enter full name" required>
                 </div>
 
                 <div class="form-group">
@@ -64,7 +69,7 @@
 
                 <div class="form-group">
                     <label for="signup-phone">Phone Number</label>
-                    <input type="tel" id="signup-phone" placeholder="Enter your phone number" required>
+                    <input type="tel" name="phone" id="signup-phone" placeholder="Enter your phone number" required>
                 </div>
 
                 <div class="form-group">

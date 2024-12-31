@@ -5,8 +5,8 @@ from .models import Profile, ContactMessage
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     full_name = forms.CharField(max_length=100, required=False, label="Full Name")
-    email = forms.EmailField(required=False, label="Email Address")
-    phone = forms.CharField(max_length=15, required=False, label="Phone")
+    email = forms.EmailField(required=True, label="Email Address")
+    phone = forms.CharField(max_length=15, required=True, label="Phone")
 
     def clean(self):
         print("Form clean method called")  #
