@@ -31,14 +31,7 @@
         {% for course in enrolled_courses %}
         <div class="course">
             <div class="course-video">
-                <iframe
-                        class="video-player"
-                        src="{% if course.video_url %}{{ course.video_url }}{% endif %}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        style="height: 300px;">
-                </iframe>
+                <img src="https://img.youtube.com/vi/{{ course.video_url }}/0.jpg" alt="Video Thumbnail" style="width: 50%"/>
             </div>
             <div class="course-details">
                 <h2>{{ course.name }}</h2>

@@ -44,7 +44,7 @@
                     {% endif %}
                 </div>
                 
-                <button type="submit" class="submit-btn">Change Password</button>
+                <button type="submit" class="submit-btn">Change Info</button>
 
             </form>
         </div>

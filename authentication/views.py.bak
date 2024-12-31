@@ -9,18 +9,12 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             print("Registration form is valid.")
-            user = form.save()  # Save the user and profile
-
-            # Get or create the profile for the user
+            user = form.save()
             profile, created = Profile.objects.get_or_create(user=user)
-
-            # Assign the phone number to the profile
-            profile.phone = form.cleaned_data['phone']  # Correctly use the phone field
-            print("Profile phone before saving:", profile.phone)  # Debug print
-            profile.save()  # Save the profile with the phone number
-
+            profile.phone = form.cleaned_data['phone']
+            profile.save()
             login(request, user)
-            return redirect('/')  # Redirect to the homepage after successful registration
+            return redirect('/')  # Redirect to the login page after successful registration
         else:
             return render(request, 'authentication/login.html', {
                 'form': form,
@@ -32,6 +26,7 @@ def register(request):
         form = CustomUserCreationForm()
 
     return render(request, 'authentication/login.html', {'form': form, 'form_type': 'signup'})
+
 
 # Login View
 def login_view(request):

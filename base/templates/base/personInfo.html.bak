@@ -32,26 +32,37 @@
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone</label>
-                        <input type="text" id="phone" name="phone" value="{{ user.profile.phone }}">
+                            <input type="text" id="phone" name="phone"
+                                value="{{ user.profile.phone }}">
                         </div>
-                    <button type="submit" class="submit-btn">Update Information</button>
-                    <br />
-                    <br />
-                    <button type="button" class="submit-btn" onclick="location.href='{% url 'change-password' %}';">
-                        Change Password
+                        <button type="button" class="submit-btn"
+                            onclick="location.href='{% url 'change-password' %}';">
+                            Change Information
                         </button>
                     </form>
                 </div>
 
                 <!-- Profile Image Section -->
                 <div class="person-img">
-                <form id="profile-form" class="profile-form" method="post" enctype="multipart/form-data" action="{% url 'edit-profile' %}">
+                    <form id="profile-form" class="profile-form" method="post"
+                        enctype="multipart/form-data"
+                        action="{% url 'edit-profile' %}">
                         {% csrf_token %}
-                    <input type="file" id="profile-image" name="image" accept="image/*" style="display: none;" onchange="previewImage(event)">
-                    <button type="button" class="upload-btn custom-file-label" onclick="document.getElementById('profile-image').click();">
-                        <img id="preview" src="{{ request.user.profile.image.url }}" alt="Profile Image">
+                        <!--هنا فيه الصوره الشخصيه -->
+
+                        <input type="file" id="profile-image" name="image"
+                            accept="image/*" style="display: none;"
+                            onchange="previewImage(event)">
+
+                        <!-- Button to trigger file input -->
+                        <button type="button" class="upload-btn custom-file-label"
+                            onclick="document.getElementById('profile-image').click();">
+                            <img id="preview" src="{{ request.user.profile.image.url }}"
+                            alt="Profile Image">
                         </button>
-                    <button type="submit" class="upload-btn btn" style=" width: 70%; margin: 2% auto;"> SAVE Change</button>
+
+                        <button type="submit" class="upload-btn btn" style=" width: 70%; margin: 2% auto;"> SAVE Change
+                        </button>
                         <script>
                     // Preview the selected image before upload
                     function previewImage(event) {

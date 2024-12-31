@@ -1,5 +1,5 @@
 from django.contrib.auth.views import PasswordChangeView
-from .forms import CustomPasswordChangeForm
+from .forms import CustomPasswordChangeForm, UserInformationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
@@ -11,11 +11,49 @@ from django.templatetags.static import static
 
 @login_required
 def person_info(request):
-    context = {
-        'default_profile_image': static('base/img/default_profile.png'),
-    }
-    return render(request, 'base/personInfo.html', context)
+    # Initialize forms
+    user_form = UserInformationForm(instance=request.user)
+    profile_form = ProfileForm(instance=request.user.profile)
 
+    if request.method == 'POST':
+        # Create forms with the POST data
+        user_form = UserInformationForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            # Save the changes
+            user_form.save()
+            profile_form.save()
+
+            return redirect('person-info')  # Redirect to the same page after saving the changes
+
+    return render(request, 'base/person_info.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+    })
+
+@login_required
+def update_person_info(request):
+
+    user_form = UserInformationForm(instance=request.user)
+    profile_form = ProfileForm(instance=request.user.profile)
+
+    if request.method == 'POST':
+        # Create the forms with POST data and update the instance
+        user_form = UserInformationForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            # Save the updated user and profile data
+            user_form.save()
+            profile_form.save()
+
+            return redirect('person-info')  # Redirect back to the personal info page
+
+    return render(request, 'base/person_info.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+    })
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
     model = Profile
@@ -23,10 +61,12 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
     template_name = 'base/personInfo.html'
 
     def get_object(self):
+        # Try to get the user's profile, or create one if it doesn't exist
         profile, created = Profile.objects.get_or_create(user=self.request.user)
         return profile
 
     def form_valid(self, form):
+        # Handle form validity
         print("Form is valid and saving image.")
         return super().form_valid(form)
 
