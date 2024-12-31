@@ -25,8 +25,7 @@
                                 placeholder="Search ...."
                                 value="{{ request.GET.search }}">
                             <button id="search-btn"
-                                type="submit">Search
-                        </button>
+                                type="submit">Search</button>
                         </div>
                     </form>
 
@@ -41,11 +40,10 @@
                     <div class="user-div" id="user-div" style="display: none;">
                         {% if user.is_authenticated %}
                         <a href="{% url 'person-info' %}">My Account</a>
-                    <a href="{% url 'my_list' %}">My List</a>
                         <a  class="Logout-btn"  href="{% url 'logout' %}">Logout</a>
                         {% else %}
-                        <a href="{% url 'login' %}">Login</a>
-                        <a href="{% url 'register' %}">Register</a>
+                        <a href="{% url 'login' %}?form=login">Login</a>
+                        <a href="{% url 'login' %}?form=signup">Register</a>
                         {% endif %}
                     </div>
                 </div>

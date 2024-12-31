@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+
 from .decorators import custom_login_required
 from .forms import CourseForm
 from .models import Course, Enrollment
@@ -104,16 +104,3 @@ class CourseDeleteView(LoginRequiredMixin, DeleteView):
     model = Course
     template_name = 'course/delete_course.html'
     success_url = reverse_lazy('course_list')
-
-
-
-
-@login_required
-def my_list(request):
-    # Get the courses the user is enrolled in
-    enrolled_courses = Course.objects.filter(enrollments__user=request.user)
-
-    context = {
-        'enrolled_courses': enrolled_courses
-    }
-    return render(request, 'course/my_list.html', context)

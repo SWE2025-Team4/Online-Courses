@@ -8,7 +8,7 @@ class Course(models.Model):
     written_date = models.DateField(auto_now=True)
     description = models.TextField(blank=True)
     notes = models.TextField(blank=True)
-    video_url = models.URLField(blank=True)
+    video_url = models.TextField(blank=True)
     instructor = models.ForeignKey(User, related_name="courses", on_delete=models.CASCADE)
 
     CATEGORY_CHOICES = [

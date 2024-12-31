@@ -13,8 +13,11 @@ def register(request):
             login(request, user)
             return redirect('/')  # Redirect to the login page after successful registration
         else:
-            print("Registration form is invalid.")
-            print(form.errors)  # Debugging: Log form errors
+            return render(request, 'authentication/login.html', {
+                'form': form,
+                'form_type': 'signup',  # Indicate this is the signup form
+                'error_message': form.errors.as_ul()  # Render errors as an unordered list
+            })            
     else:
         print("Request method is GET for registration.")
         form = CustomUserCreationForm()
@@ -35,12 +38,10 @@ def login_view(request):
         else:
             error_message = "Invalid username or password. Please try again."
 
-    # Preserve the query parameters
-    query_param = '?form=login'
+    # Preserve the query parameters    
     return render(request, 'authentication/login.html', {
         'form_type': 'login',
-        'error_message': error_message,
-        'query_param': query_param,
+        'error_message': error_message        
     })
 
 

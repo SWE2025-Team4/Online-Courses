@@ -1,0 +1,31 @@
+-- install django
+pip install --upgrade pip 
+or 
+py -m pip install --upgrade pip
+
+pip install django
+or 
+py -m pip install django
+
+-- check django installtion
+django-admin --version
+
+-- create django project
+django-admin startproject team5
+------------------------------------------
+--  login to admin dashboard 
+python manage.py migrate
+python manage.py createsuperuser
+user : sherif
+pass : P@ssw0rd
+python manage.py runserver
+http://127.0.0.1:8000/admin/
+---------------------------------------------
+python manage.py makemigrations
+python manage.py migrate
+
+py manage.py runserver 0.0.0.0:8000
+
+py -m pip freeze > requirements.txt
+docker build -t e-learning:v1 .
+docker run -p 7000:8000 e-learning:v1

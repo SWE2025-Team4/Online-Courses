@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="{% static 'base/css/style.css' %}?v=1.0">
     <link rel="icon" type="image/svg+xml" href="{% static 'base/img/icons/logoicon.svg' %}?v=1.0">
     <title>Contact Us</title>
+    <title>Contact Us</title>
 </head>
 
 {% include 'base/header.html' %}
@@ -28,12 +29,18 @@
                 <li><a href=""><img class="icon" src="{% static 'base/img/8665305_envelope_email_icon.png' %}" alt=""> example@example.com</a></li>
                 <li><a href=""><img class="icon" src="{% static 'base/img/8665646_phone_communication_icon.png' %}" alt=""> +1 (012)-345-678</a></li>
                 <li><a href=""><img class="icon" src="{% static 'base/img/10523337_google_talk_icon.png' %}" alt=""> Local address, United States</a></li>
+                <li><a href=""><img class="icon" src="{% static 'base/img/8665305_envelope_email_icon.png' %}" alt=""> example@example.com</a></li>
+                <li><a href=""><img class="icon" src="{% static 'base/img/8665646_phone_communication_icon.png' %}" alt=""> +1 (012)-345-678</a></li>
+                <li><a href=""><img class="icon" src="{% static 'base/img/10523337_google_talk_icon.png' %}" alt=""> Local address, United States</a></li>
             </ul>
         </div>
 
+
         <div class="contact-form">
             <form method="POST" action="{% url 'contactUs' %}">
+            <form method="POST" action="{% url 'contactUs' %}">
                 {% csrf_token %}
+                {{ form.as_p }}
                 {{ form.as_p }}
                 <button type="submit">Submit</button>
             </form>
@@ -45,3 +52,4 @@
 {% include 'base/footer.html' %}
 
 </html>
+

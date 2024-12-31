@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-%(fs8anrdmr=(wrya0^i(6-j0j=#)&sy721d^b81fo7(!_3t8y
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://team5.ddns.net']
+CSRF_TRUSTED_ORIGINS = ['https://team5.ddns.net','https://team5-test.ddns.net','http://localhost:8000','http://localhost:7000']
 
 # Application definition
 JAZZMIN_SETTINGS = {

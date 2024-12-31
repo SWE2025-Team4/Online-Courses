@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My List</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'course/css/style.css' %}">
+</head>
+<body>
+{% include 'base/header.html' %}
+<section>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1 class="text-center">My List</h1>
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+    <div class="catalog-container">
+        {% if enrolled_courses %}
+        {% for course in enrolled_courses %}
+        <div class="course">
+            <div class="course-video">
+                <iframe
+                        class="video-player"
+                        src="{% if course.video_url %}{{ course.video_url }}{% endif %}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        style="height: 300px;">
+                </iframe>
+            </div>
+            <div class="course-details">
+                <h2>{{ course.name }}</h2>
+                <p><strong>Category:</strong> {{ course.get_category_display }}</p>
+                <p>{{ course.description }}</p>
+                <p><strong>Instructor:</strong> {{ course.instructor.username }}</p>
+
+                <button class="enroll-btn"
+                        onclick="window.location.href='{% url 'course_detail' course.id %}';">
+                    Continue Learning
+                </button>
+
+            </div>
+        </div>
+
+        {% endfor %}
+        {% else %}
+        <p>You are not enrolled in any courses.</p>
+        {% endif %}
+    </div>
+</section>
+{% include 'base/footer.html' %}
+</body>
+</html>

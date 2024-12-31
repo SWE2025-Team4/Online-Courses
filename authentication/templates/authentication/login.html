@@ -13,29 +13,28 @@
 {% include 'base/header.html' %}
 
 
-<section>
+<section>   
     <div class="login-div">
         <div class="form-container">
 
             <h1 class="login-title">Welcome To
                 <span class="color-letter">C</span>ode<span class="color-letter">T</span>ech
             </h1>
-
+        
             <div class="toggle-buttons">
-                <button id="login-btn" class="{% if request.GET.form == 'login' %}active{% endif %}">Login</button>
-                <button id="signup-btn" class="{% if request.GET.form == 'signup' %}active{% endif %}">Signup</button>
+                <button id="login-btn" class="{% if form_type == 'login' %}active{% endif %}">Login</button>
+                <button id="signup-btn" class="{% if form_type == 'signup' %}active{% endif %}">Signup</button>
             </div>
+            {% if error_message %}
+            <div class="error-message" style="color: red; margin-bottom: 15px;">
+                {{ error_message }}
+            </div>
+            {% endif %}
 
             <!-- Login Form -->
-            <form id="login-form" class="form {% if request.GET.form == 'signup' %}hidden{% endif %}"
+            <form id="login-form" class="form {% if form_type == 'signup' %}hidden{% endif %}"
                   method="POST" action="{% url 'login' %}{{ query_param }}">
                 {% csrf_token %}
-
-                {% if error_message %}
-                <div class="error-message" style="color: red; margin-bottom: 15px;">
-                    {{ error_message }}
-                </div>
-                {% endif %}
 
                 <div class="form-group">
                     <label for="login-email">Username</label>
@@ -45,15 +44,12 @@
                     <label for="login-password">Password</label>
                     <input type="password" name="password" id="login-password" placeholder="Enter your password"
                            required>
-                </div>
-                <div class="form-links">
-                    <a href="#">Forgot password?</a>
-                </div>
+                </div>                
                 <button type="submit" class="submit-btn">Login</button>
             </form>
 
             <!-- Signup Form -->
-            <form id="signup-form" class="form {% if request.GET.form == 'login' %}hidden{% endif %}" method="POST"
+            <form id="signup-form" class="form {% if form_type == 'login' %}hidden{% endif %}" method="POST"
                   action="{% url 'register' %}">
                 {% csrf_token %}
                 <div class="form-group">
@@ -82,12 +78,6 @@
                     <input type="password" name="password2" id="signup-confirm-password"
                            placeholder="Confirm your password" required>
                 </div>
-
-                <div class="save_password">
-                    <input type="checkbox" id="save_password" name="save_password">
-                    <label for="save_password">Save Password</label>
-                </div>
-
                 <button type="submit" class="submit-btn">Signup</button>
             </form>
 

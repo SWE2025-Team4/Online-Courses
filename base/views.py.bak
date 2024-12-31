@@ -7,14 +7,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Profile
 from .forms import ProfileForm, ContactMessageForm
-from django.templatetags.static import static
 
-@login_required
-def person_info(request):
-    context = {
-        'default_profile_image': static('base/img/default_profile.png'),
-    }
-    return render(request, 'base/personInfo.html', context)
+from .forms import ProfileForm, ContactMessageForm
 
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
@@ -30,11 +24,13 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        print("Form is invalid. Errors:", form.errors)
+        print("Form is invalid.")
+        print("Errors:", form.errors)
         return super().form_invalid(form)
 
     def get_success_url(self):
         return reverse_lazy('edit-profile')
+
 
 
 class CustomPasswordChangeView(PasswordChangeView):

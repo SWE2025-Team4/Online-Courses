@@ -1,11 +1,8 @@
 from django.contrib import admin
-from .models import Course, Playlist
+from .models import Course, Playlist, Enrollment
 from django.contrib import admin
 
-# Customizing the Admin Site
-admin.site.site_header = "Blog Admin Panel"
-admin.site.site_title = "Blog Administration"
-admin.site.index_title = "Welcome to Blog Admin"
+
 
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('name', 'instructor', 'description', 'created_date', 'written_date', 'category')
@@ -19,7 +16,12 @@ class CourseAdmin(admin.ModelAdmin):
 class PlaylistAdmin(admin.ModelAdmin):
     list_display = ('title', 'course')
 
+
+class EnrollmentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'course', 'enrolled_date')
+
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Playlist, PlaylistAdmin)
+admin.site.register(Enrollment, EnrollmentAdmin)
 
 
