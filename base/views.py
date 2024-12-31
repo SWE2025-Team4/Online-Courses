@@ -23,7 +23,8 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
     template_name = 'base/personInfo.html'
 
     def get_object(self):
-        return self.request.user.profile
+        profile, created = Profile.objects.get_or_create(user=self.request.user)
+        return profile
 
     def form_valid(self, form):
         print("Form is valid and saving image.")
