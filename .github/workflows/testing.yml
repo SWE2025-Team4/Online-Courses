@@ -5,27 +5,34 @@ on:
   pull_request:
     branches: [ "testing" ]
   workflow_dispatch:
+env: 
+  filepath: c:\temp\version.txt    
 jobs:
   
   build:
     runs-on: django
     
     steps:
-    - uses: actions/checkout@v4
-    - name: Get Image Tag
-      run:
-        $timestamp = (Get-Date -UFormat "%s");
-        echo "Generated timestamp :" $timestamp;
-        echo "timestamp=$timestamp" >> $GITHUB_ENV;
-        echo "1 The timestamp is ${{ env.timestamp }}"
+    - name: set version
+      run: |       
+       if (!(Test-Path $env:filepath)) {
+        echo '0' > $env:filepath
+       }
+       $version=[int](cat $env:filepath) + 1
+       echo $version > $env:filepath
+       echo "version is $version"
+      shell: pwsh   
+      
+    - name: show version
+      run: |                
+         $version=(cat $env:filepath)
+         echo "version is $version"
       shell: pwsh
-    - name: Verify Timestamp
-      run: |
-        echo "2 The timestamp is ${{ env.timestamp }}"
-      shell: pwsh
+    - uses: actions/checkout@v4    
     - name: Build the Docker image
-      run:        
-        docker build . --file Dockerfile --tag e-learning:${{ env.timestamp }}
+      run: |
+        $version=(cat $env:filepath)
+        docker build . --file Dockerfile --tag e-learning:$version
       shell: pwsh
     - name: Clean up existing container
       run:
@@ -36,6 +43,6 @@ jobs:
       shell: pwsh
     - name: Run the Docker container
       run:
-        $timestamp = (Get-Date -UFormat "%s")
-        docker run -d -p 7000:8000 --name e-learning-testing e-learning:${{ env.timestamp }}
+        $version=(cat $env:filepath)
+        docker run -d -p 7000:8000 --name e-learning-testing e-learning:$version
       shell: pwsh
