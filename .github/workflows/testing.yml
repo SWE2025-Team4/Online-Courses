@@ -15,7 +15,7 @@ jobs:
     - name: Get Image Tag
       run:
         $timestamp = (Get-Date -UFormat "%s");
-        echo "Generated timestamp: $timestamp";
+        echo "Generated timestamp :" $timestamp;
         echo "timestamp=$timestamp" >> $GITHUB_ENV;
       shell: pwsh
     - name: Verify Timestamp
