@@ -17,6 +17,10 @@ jobs:
         $timestamp = (Get-Date -UFormat "%s") ;
         echo "timestamp=$timestamp" >> $GITHUB_ENV ;
       shell: pwsh
+    - name: Verify Timestamp
+      run: |
+        echo "The timestamp is $env:timestamp"
+      shell: pwsh
     - name: Build the Docker image
       run:        
         docker build . --file Dockerfile --tag e-learning:${{ env.timestamp }}
