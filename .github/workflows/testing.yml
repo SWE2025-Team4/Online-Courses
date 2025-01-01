@@ -6,7 +6,7 @@ on:
     branches: [ "testing" ]
   workflow_dispatch:
 env: 
-  filepath: c:\temp\version.txt    
+  filepath: c:\temp\version-testing.txt    
 jobs:
   
   build:
@@ -36,7 +36,7 @@ jobs:
     - name: Build the Docker image
       run: |
         $version=(cat $env:filepath)
-        docker build . --file Dockerfile --tag e-learning:$version
+        docker build . --file Dockerfile --tag e-learning-testing:$version
       shell: pwsh
     - name: Clean up existing container
       run: |  
@@ -48,5 +48,5 @@ jobs:
     - name: Run the Docker container
       run: |  
         $version=(cat $env:filepath)
-        docker run -d -p 7000:8000 --name e-learning-testing e-learning:$version
+        docker run -d -p 7000:8000 --name e-learning-testing e-learning-testing:$version
       shell: pwsh
