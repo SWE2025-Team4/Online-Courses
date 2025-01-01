@@ -13,7 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run:
-        $timestamp = (Get-Date -UFormat "%s")
-        docker build . --file Dockerfile --tag e-learning:$timestamp
+      run:        
+        docker build . --file Dockerfile --tag e-learning:$(Get-Date -UFormat "%s")
       shell: pwsh
