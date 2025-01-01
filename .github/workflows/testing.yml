@@ -1,0 +1,15 @@
+name: online-courses-CI
+on:
+  push:
+    branches: [ "testing" ]
+  pull_request:
+    branches: [ "testing" ]
+jobs:
+  
+  build:
+    runs-on: django
+    
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag e-learning:$(date +%s)
