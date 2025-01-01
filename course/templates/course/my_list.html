@@ -9,29 +9,16 @@
 </head>
 <body>
 {% include 'base/header.html' %}
-<section>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <h1 class="text-center">My List</h1>
+<section style=" width: 90%; margin: 110px auto;">
 
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
+    <h1 class="text-center" style="font-size: 35px; color: white; margin-bottom: 70px">My List</h1>
+
     <div class="catalog-container">
         {% if enrolled_courses %}
         {% for course in enrolled_courses %}
         <div class="course">
             <div class="course-video">
-                <img src="https://img.youtube.com/vi/{{ course.video_url }}/0.jpg" alt="Video Thumbnail" style="width: 50%"/>
+                <img  src="https://img.youtube.com/vi/{{ course.video_url }}/0.jpg" alt="Video Thumbnail" style="width: 90%; border-radius:5px;"/>
             </div>
             <div class="course-details">
                 <h2>{{ course.name }}</h2>
@@ -40,7 +27,8 @@
                 <p><strong>Instructor:</strong> {{ course.instructor.username }}</p>
 
                 <button class="enroll-btn"
-                        onclick="window.location.href='{% url 'course_detail' course.id %}';">
+                        onclick="window.location.href='{% url 'course_detail' course.id %}';"
+                        style= "width: 60%; padding: 2% 3%;">
                     Continue Learning
                 </button>
 

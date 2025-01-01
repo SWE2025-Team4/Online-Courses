@@ -1,166 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ course.name }} - Details</title>
     {% load static %}
-    <link type="text/css" rel="stylesheet" href="{% static 'course/css/style.css' %}?v=1.0">
-<link rel="icon" type="image/svg+xml" href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0">
-<link rel="icon" type="image/svg+xml" href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0">
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="{% static 'course/css/style.css' %}?v=1.0"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'course/img/icons/logoicon.svg' %}?v=1.0"
+    />
 
-<style>
-    /* Basic reset and page style */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-    }
-
-    /* Main container: left video + right playlist */
-    .container {
+    <style>
+      /* Basic reset and page style */
+      /* Main container: left video + right playlist */
+      .container {
         margin-top: 100px;
-      display: flex;
-      flex-direction: row;
-      height: 100vh; /* Occupy full viewport height */
-    }
+        display: flex;
+        width: 98%;
+        flex-direction: row;
+        height: 500px; /* Occupy full viewport height */
+      }
 
-    /* Left side: video iframe */
-    .video-container1 {
-      flex: 1; /* Takes remaining space */
-      background-color: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .video-container1 iframe {
-      width: 90%;
-      height: 90%;
-      border: none;
-    }
+      /* Left side: video iframe */
+      .video-container1 {
+        flex: 1; /* Takes remaining space */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .video-container1 iframe {
+        width: 90%;
+        height: 100%;
+        border: none;
+        border-radius: var(--border-radius-small);
+      }
 
-    /* Right side: playlist */
-    .playlist2 {
-      width: 320px; /* Fixed width for the playlist */
-      background-color: #fff;
-      overflow-y: auto;
-      border-left: 1px solid #ddd;
-    }
+      /* Right side: playlist */
+      .playlist2 {
+        width: 30%;
+        height: 100%%;
+        padding: 1rem;
+        border-radius: var(--border-radius-small);
+        border: 1px groove var(--main-color);
+        box-shadow: 0 2px 5px var(--main-color);
+        color: var(--Secondary-color);
+      }
 
-    /* Single video item in playlist */
-    .video-item {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .video-item:hover {
-      background-color: #f0f0f0;
-    }
+      /* Single video item in playlist */
+      .video-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border-radius: var(--border-radius-small);
+      }
+      .video-item:hover {
+        background-color: #07c6fe;
+        color: #ffffffd8;
+      }
 
-    /* Thumbnail image */
-    .video-item img {
-      width: 80px;
-      height: 45px;
-      object-fit: cover;
-      margin-right: 10px;
-    }
+      .video-item:hover .video-title {
+        color: #ffffffd8;
+      }
 
-    /* Video title text */
-    .video-info {
-      display: flex;
-      flex-direction: column;
-    }
-    .video-title {
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #333;
-    }
-    .video-description {
-      color: #666;
-      font-size: 0.9rem;
-    }
-  </style>
+      /* Thumbnail image */
+      .video-item img {
+        width: 80px;
+        height: 45px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 5px;
+      }
 
-</head>
+      /* Video title text */
+      .video-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .video-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #17c7fd;
+      }
+      .video-description {
+        color: #666;
+        font-size: 0.9rem;
+      }
+      .course-content {
+        display: flex;
+        width: 95%;
+        flex-direction: column;
+        padding: 2% 4%;
+        color: white;
+      }
+    </style>
+  </head>
 
+  {% include 'base/header.html' %}
 
-{% include 'base/header.html' %}
-
-
-
-    <div class="container">
-        <!-- Main Video Section -->
-        <div class="video-container1">
-            <iframe 
-              id="video-player" 
-              src="https://www.youtube.com/embed/r5iWCtfltso" 
-              allowfullscreen>
-            </iframe>
-          </div>
-
-        <!-- Playlist Section -->
-        <div class="playlist2">
-            <h3 class="highlight">Playlist</h3>
-           
-                {% for video in playlist %}                
-                <div 
-                    class="video-item" 
-                    data-video="https://www.youtube.com/embed/{{ video.video_url }}" 
-                    onclick="changeVideo(this)">
-                    <img src="https://img.youtube.com/vi/{{ video.video_url }}/0.jpg" alt="Video Thumbnail" />
-                    <div class="video-info">
-                    <div class="video-title">{{ video.title }}</div>                    
-                    </div>
-                </div>
-                {% empty %}
-                <p>No videos available for this course.</p>
-                {% endfor %}
-            
-        </div>
-    </div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-
-    <!-- Course Content Section -->
-    <div class="course-content">
-        <h1 class="highlight">{{ course.name }}</h1>
-        <p>Instructor: {{ course.instructor.first_name }} {{ course.instructor.last_name }}</p>
-        <div class="description">
-            <h1 class="highlight">About the Course</h1>
-            <p>{{ course.description }}</p>
-        </div>
+  <div class="container">
+    <!-- Main Video Section -->
+    <div class="video-container1">
+      <iframe
+        id="video-player"
+        src="https://www.youtube.com/embed/r5iWCtfltso"
+        allowfullscreen
+      >
+      </iframe>
     </div>
 
+    <!-- Playlist Section -->
+    <div class="playlist2">
+      <h3 class="highlight">Playlist</h3>
 
-<script>
+      {% for video in playlist %}
+      <div
+        class="video-item"
+        data-video="https://www.youtube.com/embed/{{ video.video_url }}"
+        onclick="changeVideo(this)"
+      >
+        <img 
+          src="https://img.youtube.com/vi/{{ video.video_url }}/0.jpg"
+          alt="Video Thumbnail"
+        />
+        <div class="video-info">
+          <div class="video-title">{{ video.title }}</div>
+        </div>
+      </div>
+      {% empty %}
+      <p>No videos available for this course.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Course Content Section -->
+  <div class="course-content">
+    <h1 class="highlight">{{ course.name }}</h1>
+    <p>
+      Instructor: {{ course.instructor.first_name }} {{
+      course.instructor.last_name }}
+    </p>
+    <div class="description">
+      <h1 class="highlight">About the Course</h1>
+      <p>{{ course.description }}</p>
+      <div class="rating-container">
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star empty">&#9733;</span>
+        <span class="review">(340 Reviews)</span>
+      </div>
+      <h3 class="highlight">What You'll Learn:</h3>
+      <ul>
+        <li>HTML Basics and Structure</li>
+        <li>CSS for Styling and Layout</li>
+        <li>Responsive Design Techniques</li>
+        <li>Building a Complete Web Page</li>
+      </ul>
+      <h3 class="highlight">Requirements:</h3>
+      <ul>
+        <li>No prior knowledge is required.</li>
+        <li>A computer with internet access.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
     function changeVideo(element) {
       // Get the iframe
-      const videoPlayer = document.getElementById('video-player');
+      const videoPlayer = document.getElementById("video-player");
       // Get the new video's base URL from the data-video attribute
-      const baseUrl = element.getAttribute('data-video');
+      const baseUrl = element.getAttribute("data-video");
       // Append ?autoplay=1 to ensure the video starts playing immediately
-      const newVideoURL = baseUrl + '?autoplay=1';
+      const newVideoURL = baseUrl + "?autoplay=1";
       // Change the src of the iframe
       videoPlayer.src = newVideoURL;
     }
   </script>
 
-{% include 'base/footer.html' %}
+  {% include 'base/footer.html' %}
 
-
-<script type="text/javascript" src="{% static 'course/js/playlist.js' %}?v=1.0"></script>
-
-
+  <script
+    type="text/javascript"
+    src="{% static 'course/js/playlist.js' %}?v=1.0"
+  ></script>
 </html>
