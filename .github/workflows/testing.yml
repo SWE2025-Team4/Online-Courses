@@ -12,7 +12,23 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+    - name: Get Image Tag
+      run:
+        $timestamp = (Get-Date -UFormat "%s")        
+      shell: pwsh
     - name: Build the Docker image
       run:        
-        docker build . --file Dockerfile --tag e-learning:$(Get-Date -UFormat "%s")
+        docker build . --file Dockerfile --tag e-learning:$timestamp
+      shell: pwsh
+    - name: Clean up existing container
+      run:
+        if (docker ps -a --format '{{.Names}}' | Select-String -Pattern 'e-learning-testing') {
+          docker stop e-learning-testing
+          docker rm e-learning-testing
+        }
+      shell: pwsh
+    - name: Run the Docker container
+      run:
+        $timestamp = (Get-Date -UFormat "%s")
+        docker run -d -p 7000:8000 --name e-learning-testing e-learning:$timestamp
       shell: pwsh
