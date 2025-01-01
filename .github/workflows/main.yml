@@ -10,24 +10,50 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+env: 
+  filepath: c:\temp\version-prod.txt    
 jobs:
-  # This workflow contains a single job called "build"
+  
   build:
-    # The type of runner that the job will run on
-    runs-on: 
-      - django
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: django
+    
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      - name: Copy project files (Windows)
-        run:          
-          robocopy . C:\temp\e-learning /MIR /XD ".git" ".github"
-        
+    - name: set version
+      run: |       
+       if (!(Test-Path $env:filepath)) {
+        echo '0' > $env:filepath
+       }
+       $version=[int](cat $env:filepath) + 1
+       echo $version > $env:filepath
+       echo "version is $version"
+      shell: pwsh   
+      
+    - name: show version
+      run: |                
+         $version=(cat $env:filepath)
+         echo "version is $version"
+      shell: pwsh
+    - uses: actions/checkout@v4
+    - name: Copy database file
+      run: |
+        copy 'D:\SWE2025\e-learning\db.sqlite3' .
+      shell: pwsh
+    - name: Build the Docker image
+      run: |
+        $version=(cat $env:filepath)
+        docker build . --file Dockerfile --tag e-learning-prod:$version
+      shell: pwsh
+    - name: Clean up existing container
+      run: |  
+        if (docker ps -a --format '{{.Names}}' | Select-String -Pattern 'e-learning-prod') {
+          docker stop e-learning-prod
+          docker rm e-learning-prod
+        }
+      shell: pwsh
+    - name: Run the Docker container
+      run: |  
+        $version=(cat $env:filepath)
+        docker run -d -p 8000:8000 --name e-learning-prod e-learning-prod:$version
+      shell: pwsh
