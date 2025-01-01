@@ -14,11 +14,12 @@ jobs:
     - uses: actions/checkout@v4
     - name: Get Image Tag
       run:
-        $timestamp = (Get-Date -UFormat "%s")        
+        $timestamp = (Get-Date -UFormat "%s") 
+        echo "timestamp=$timestamp" >> $GITHUB_ENV
       shell: pwsh
     - name: Build the Docker image
       run:        
-        docker build . --file Dockerfile --tag e-learning:$timestamp
+        docker build . --file Dockerfile --tag e-learning:${{ env.timestamp }}
       shell: pwsh
     - name: Clean up existing container
       run:
@@ -30,5 +31,5 @@ jobs:
     - name: Run the Docker container
       run:
         $timestamp = (Get-Date -UFormat "%s")
-        docker run -d -p 7000:8000 --name e-learning-testing e-learning:$timestamp
+        docker run -d -p 7000:8000 --name e-learning-testing e-learning:${{ env.timestamp }}
       shell: pwsh
