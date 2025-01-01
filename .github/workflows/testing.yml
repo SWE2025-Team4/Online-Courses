@@ -35,14 +35,14 @@ jobs:
         docker build . --file Dockerfile --tag e-learning:$version
       shell: pwsh
     - name: Clean up existing container
-      run:
+      run: |  
         if (docker ps -a --format '{{.Names}}' | Select-String -Pattern 'e-learning-testing') {
           docker stop e-learning-testing
           docker rm e-learning-testing
         }
       shell: pwsh
     - name: Run the Docker container
-      run:
+      run: |  
         $version=(cat $env:filepath)
         docker run -d -p 7000:8000 --name e-learning-testing e-learning:$version
       shell: pwsh
