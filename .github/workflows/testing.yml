@@ -14,12 +14,13 @@ jobs:
     - uses: actions/checkout@v4
     - name: Get Image Tag
       run:
-        $timestamp = (Get-Date -UFormat "%s") ;
-        echo "timestamp=$timestamp" >> $GITHUB_ENV ;
+        $timestamp = (Get-Date -UFormat "%s");
+        echo "Generated timestamp: $timestamp";
+        echo "timestamp=$timestamp" >> $GITHUB_ENV;
       shell: pwsh
     - name: Verify Timestamp
       run: |
-        echo "The timestamp is $env:timestamp"
+        echo "The timestamp is $timestamp"
       shell: pwsh
     - name: Build the Docker image
       run:        
