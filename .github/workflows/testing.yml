@@ -17,11 +17,11 @@ jobs:
         $timestamp = (Get-Date -UFormat "%s");
         echo "Generated timestamp :" $timestamp;
         echo "timestamp=$timestamp" >> $GITHUB_ENV;
-        echo "1 The timestamp is ${{ env.action_state }}"
+        echo "1 The timestamp is ${{ env.timestamp }}"
       shell: pwsh
     - name: Verify Timestamp
       run: |
-        echo "2 The timestamp is ${{ env.action_state }}"
+        echo "2 The timestamp is ${{ env.timestamp }}"
       shell: pwsh
     - name: Build the Docker image
       run:        
