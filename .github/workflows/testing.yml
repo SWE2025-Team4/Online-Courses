@@ -28,7 +28,11 @@ jobs:
          $version=(cat $env:filepath)
          echo "version is $version"
       shell: pwsh
-    - uses: actions/checkout@v4    
+    - uses: actions/checkout@v4
+    - name: Copy database file
+      run: |
+        copy 'D:\SWE2025\e-learning\db.sqlite3' .
+      shell: pwsh
     - name: Build the Docker image
       run: |
         $version=(cat $env:filepath)
