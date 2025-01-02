@@ -29,3 +29,6 @@ py manage.py runserver 0.0.0.0:9000
 py -m pip freeze > requirements.txt
 docker build -t e-learning:v1 .
 docker run -p 7000:8000 e-learning:v1
+-------------------------------------------
+
+py manage.py test

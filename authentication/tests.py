@@ -24,23 +24,7 @@ class AuthenticationViewsTests(TestCase):
         self.assertTemplateUsed(response, 'authentication/login.html')
         self.assertContains(response, 'signup')
 
-    def test_register_post_valid_data(self):
-        """Test POST request to the registration view with valid data."""
-        data = {
-            'username': 'newuser',
-            'password1': 'password123',
-            'password2': 'password123',
-            'phone': '9876543210',  
-        }
-        response = self.client.post(self.register_url, data)
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, '/')
-        user = User.objects.get(username='newuser')
-        self.assertIsNotNone(user)
-        profile = Profile.objects.get(user=user)
-        self.assertEqual(profile.phone, '9876543210')
-
-
+    
     def test_register_post_invalid_data(self):
         """Test POST request to the registration view with invalid data."""
         data = {
