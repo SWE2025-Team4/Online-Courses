@@ -24,7 +24,7 @@ http://127.0.0.1:8000/admin/
 python manage.py makemigrations
 python manage.py migrate
 
-py manage.py runserver 0.0.0.0:8000
+py manage.py runserver 0.0.0.0:9000
 
 py -m pip freeze > requirements.txt
 docker build -t e-learning:v1 .

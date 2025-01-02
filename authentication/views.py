@@ -8,7 +8,7 @@ def register(request):
         print("Registration form:", request.POST)
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            print("Registration form is valid.")
+            print("Form is valid")
             user = form.save()  # Save the user and profile
 
             # Get or create the profile for the user
@@ -22,6 +22,7 @@ def register(request):
             login(request, user)
             return redirect('/')  # Redirect to the homepage after successful registration
         else:
+            print("Form errors:", form.errors)
             return render(request, 'authentication/login.html', {
                 'form': form,
                 'form_type': 'signup',  # Indicate this is the signup form
