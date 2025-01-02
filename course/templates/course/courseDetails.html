@@ -116,7 +116,7 @@
     <div class="video-container1">
       <iframe
         id="video-player"
-        src="https://www.youtube.com/embed/r5iWCtfltso"
+        src="https://www.youtube.com/embed/{{playlist.0.video_url}}"
         allowfullscreen
       >
       </iframe>
@@ -150,8 +150,7 @@
   <div class="course-content">
     <h1 class="highlight">{{ course.name }}</h1>
     <p>
-      Instructor: {{ course.instructor.first_name }} {{
-      course.instructor.last_name }}
+      Instructor: {{ course.instructor.first_name }} {{ course.instructor.last_name }}
     </p>
     <div class="description">
       <h1 class="highlight">About the Course</h1>
@@ -166,10 +165,9 @@
       </div>
       <h3 class="highlight">What You'll Learn:</h3>
       <ul>
-        <li>HTML Basics and Structure</li>
-        <li>CSS for Styling and Layout</li>
-        <li>Responsive Design Techniques</li>
-        <li>Building a Complete Web Page</li>
+        {% for video in playlist %}
+        <li>{{ video.title }}</li>        
+        {% endfor %}
       </ul>
       <h3 class="highlight">Requirements:</h3>
       <ul>

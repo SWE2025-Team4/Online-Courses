@@ -47,5 +47,5 @@ jobs:
     - name: Run the Docker container
       run: |  
         $version=(cat $env:filepath)
-        docker run -d -p 8000:8000 -v D:\SWE2025\database-prod:/data --name e-learning-prod e-learning-prod:$version
+        docker run -d -p 8000:8000 -v D:\SWE2025\database-prod:/app/data --name e-learning-prod e-learning-prod:$version
       shell: pwsh
