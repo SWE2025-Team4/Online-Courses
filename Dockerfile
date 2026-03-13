@@ -15,8 +15,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the Django project into the container
 COPY . /app/
 
-# Expose the application port
-EXPOSE 8000
+## Expose the application port
+EXPOSE 8000S
 
 # Run Django development server (adjust for production with Gunicorn/Uvicorn)
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
